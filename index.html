@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Chamados - IBBA Campinas</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Controle de Chamados - IBBA Campinas</h1>
+
+    <form action="/novo" method="post">
+        <input name="solicitante" placeholder="Solicitante" required>
+        <input name="setor" placeholder="Setor" required>
+        <input name="tipo" placeholder="Tipo de manutenção" required>
+        <input name="descricao" placeholder="Descrição" required>
+        <select name="prioridade">
+            <option>Baixa</option>
+            <option>Média</option>
+            <option>Alta</option>
+        </select>
+        <input name="tecnico" placeholder="Técnico responsável" required>
+        <button type="submit">Abrir Chamado</button>
+    </form>
+
+    <h2>Chamados Abertos</h2>
+    <table>
+        <tr>
+            <th>ID</th><th>Solicitante</th><th>Setor</th><th>Tipo</th><th>Descrição</th><th>Status</th><th>Ação</th>
+        </tr>
+        {% for chamado in chamados %}
+        <tr>
+            <td>{{ chamado[0] }}</td>
+            <td>{{ chamado[1] }}</td>
+            <td>{{ chamado[2] }}</td>
+            <td>{{ chamado[3] }}</td>
+            <td>{{ chamado[4] }}</td>
+            <td>{{ chamado[7] }}</td>
+            <td>
+                {% if chamado[7] != 'Concluído' %}
+                <a href="/concluir/{{ chamado[0] }}">Concluir</a>
+                {% else %}
+                Concluído
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
